@@ -11,6 +11,8 @@ root :to => redirect('/books')
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
+  post 'buy/:id' => 'books#buy'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

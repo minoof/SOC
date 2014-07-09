@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update, :destroy , :buy]
 
   # GET /books
   # GET /books.json
@@ -37,6 +37,21 @@ class BooksController < ApplicationController
     end
   end
 
+  # BUY /buy/1
+  def buy
+  
+    if @book.count > 0
+      respond_to do |format|
+        @book.count -=1
+        @book.save
+        format.html { redirect_to @book, notice: 'Book was successfully b.' }
+        format.json { render :show, status: :ok, location: @book }
+      end
+    else
+      redirect_to books_url
+    end
+  end
+
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
@@ -61,21 +76,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # BUY /books/1
-  # BUY /book/1.json
-  def buy
-  	respond_to do |format|
-  		if :count > 0
-  			:count - 1
-  			format.html { redirect_to @book, notice: 'Book was successfully updated.' }
-        	format.json { render :show, status: :ok, location: @book }
-        else
-        	format.html { render :index }
-        	format.json { render json: @book.errors, status: :unprocessable_entity }
-        end
-    end
-
-end
 
   private
     # Use callbacks to share common setup or constraints between actions.
